@@ -10,7 +10,7 @@ Food Effects aims to re-balance Minecraft's food items by giving them each uniqu
 
 - Cookies & Berries are now eaten at the same speed as dried kelp.
 
-- Eating Dried kelp now clears the poison, nausea and blindness effects.
+- Eating Dried Kelp now clears the poison, nausea and blindness effects.
 
 ### Food Effects
 
