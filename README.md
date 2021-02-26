@@ -22,7 +22,7 @@ Food Effects aims to re-balance Minecraft's food items by giving them each uniqu
 
 - Eating a Cookie gives the effect Speed II for 5 seconds.
 
-- Eating a Pumpkin Pie gives the effect Resistance for 20 seconds.
+- Eating a Pumpkin Pie gives the effect Haste for 15 seconds.
 
 - Eating a Pufferfish gives the effect Water Breathing for 120 seconds.
 
