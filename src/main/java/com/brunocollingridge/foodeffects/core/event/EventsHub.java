@@ -58,10 +58,10 @@ public class EventsHub {
 			   player.addPotionEffect(new EffectInstance(Effects.HASTE,300, 1));
 		   }
 		   
-		   // Drinking a Bottle of Honey gives the effect Instant Health.
-		   if (stack.isItemEqual(stack) && stack.getItem() == Items.HONEY_BOTTLE && stack.getUseAction() == UseAction.DRINK) {
-			   player.addPotionEffect(new EffectInstance(Effects.INSTANT_HEALTH));
-		   }
+		   // Drinking a Bottle of Honey restores 2 hearts.
+	       if (stack.isItemEqual(stack) && stack.getItem()==Items.HONEY_BOTTLE && stack.getUseAction() == UseAction.DRINK) {
+	           player.addPotionEffect(new EffectInstance(Effects.INSTANT_HEALTH,1, 1/4));
+	       }
 
 	    }
        
