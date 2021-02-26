@@ -62,9 +62,13 @@ public class EventsHub {
 	       if (stack.isItemEqual(stack) && stack.getItem()==Items.HONEY_BOTTLE && stack.getUseAction() == UseAction.DRINK) {
 	           player.addPotionEffect(new EffectInstance(Effects.INSTANT_HEALTH,1, 1/4));
 	       }
+	}
 
-	    }
-       
-	      
-	
+	@SubscribeEvent
+	static void onEvent(LivingEntityUseItemEvent.Start event) {
+		ItemStack stack = event.getItem();
+		if (stack.getItem() == Items.COOKIE || stack.getItem() == Items.SWEET_BERRIES) {
+			event.setDuration(16);
+		}
+	}
 }
