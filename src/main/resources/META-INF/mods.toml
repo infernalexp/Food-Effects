@@ -7,8 +7,8 @@ license="Team Novus, All rights reserved"
     version = "1.0.0"
     
     logoFile = "logo.png"
-    authors = "Team Novus (Orilly, Nekomaster1000)"
-    credits = "Thanks to TurtyWurty, Gkoliver and SmellyModder for their help :)"
+    authors = "Team Novus (Orilly, c0d3break3r, Nekomaster1000)"
+    credits = "Thanks to ex0planetary, Gkoliver, SmellyModder, TechnoVision & TurtyWurty for their help :)"
     displayName = "Food Effects"
     description = '''This mod aims to re-balance Minecraft's various food items.'''
 
