@@ -65,9 +65,10 @@ public class EventsHub {
 	}
 
 	@SubscribeEvent
-	static void onEvent(LivingEntityUseItemEvent.Start event) {
+	static void fasterEating(LivingEntityUseItemEvent.Start event) {
 		ItemStack stack = event.getItem();
 		if (stack.getItem() == Items.COOKIE || stack.getItem() == Items.SWEET_BERRIES) {
+			// Default is 32, 16 is twice as fast, just like Dried Kelp
 			event.setDuration(16);
 		}
 	}
