@@ -23,6 +23,7 @@ public class FoodEffects
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
 
+        // Register config
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, FoodEffectsConfig.COMMON_SPEC);
     }
 
