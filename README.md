@@ -34,7 +34,7 @@ Food Effects aims to re-balance Minecraft's food items by giving them each uniqu
 
 Orilly - Developer
 
-c0d3break3r - Developer
+Pugz - Developer
 
 Nekomaster1000 - Texture Artist & Ideas Guy
 
