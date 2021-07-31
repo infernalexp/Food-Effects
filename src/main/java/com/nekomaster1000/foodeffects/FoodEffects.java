@@ -18,15 +18,23 @@ package com.nekomaster1000.foodeffects;
 
 import com.nekomaster1000.foodeffects.config.FoodEffectsConfig;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.network.FMLNetworkConstants;
+import org.apache.commons.lang3.tuple.Pair;
 
 @Mod(FoodEffects.MOD_ID)
 public class FoodEffects {
     public static final String MOD_ID = "foodeffects";
 
     public FoodEffects() {
+        final ModLoadingContext modLoadingContext = ModLoadingContext.get();
+
+        //Make sure the mod being absent on the other network side does not cause the client to display the server as incompatible
+        modLoadingContext.registerExtensionPoint(ExtensionPoint.DISPLAYTEST, () -> Pair.of(() -> FMLNetworkConstants.IGNORESERVERONLY, (a, b) -> true));
+
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new FoodEffectsEvents());
 
