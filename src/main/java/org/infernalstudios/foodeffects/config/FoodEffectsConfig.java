@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.nekomaster1000.foodeffects.config;
+package org.infernalstudios.foodeffects.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;

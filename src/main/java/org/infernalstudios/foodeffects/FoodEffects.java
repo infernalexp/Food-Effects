@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package com.nekomaster1000.foodeffects;
+package org.infernalstudios.foodeffects;
 
-import com.nekomaster1000.foodeffects.config.FoodEffectsConfig;
+import org.infernalstudios.foodeffects.config.FoodEffectsConfig;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ExtensionPoint;
 import net.minecraftforge.fml.ModLoadingContext;
