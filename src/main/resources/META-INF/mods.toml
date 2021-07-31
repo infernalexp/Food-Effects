@@ -1,27 +1,54 @@
-modLoader="javafml" 
-loaderVersion="[35,)" 
-license="Team Novus, All rights reserved"
+modLoader="javafml" #mandatory
 
-[[mods]]
-    modId = "novus_foodeffects"
-    version = "1.0.0"
-    
-    logoFile = "logo.png"
-    authors = "Team Novus"
-    credits = "Thanks to Orilly, Pugz, and Nekomaster1000"
-    displayName = "Food Effects"
-    description = '''This mod aims to re-balance Minecraft's various food items.'''
+# A version range to match for said mod loader - for regular FML @Mod it will be the forge version
+loaderVersion="[32,)" #mandatory This is typically bumped every Minecraft version by Forge. See our download page for lists of versions.
 
-[[dependencies.novus_foodeffects]]
-    modId = "minecraft"
-    mandatory = true
-    versionRange = "[1.16.4,1.16.5)"
-    ordering = "NONE"
-    side = "BOTH"
+license="Apache-2.0"
 
-[[dependencies.novus_foodeffects]]
-    modId = "forge"
-    mandatory = true
-    versionRange = "[35.1.4,)"
-    ordering = "NONE"
-    side = "BOTH"
+# A URL to refer people to when problems occur with this mod
+issueTrackerURL="https://github.com/infernalexp/food-effects/issues" #optional
+
+# A list of mods - how many allowed here is determined by the individual mod loader
+[[mods]] #mandatory
+
+# The modid of the mod
+modId = "foodeffects" #mandatory
+
+# The version number of the mod - there's a few well known ${} variables useable here or just hardcode it
+version="${file.jarVersion}" #mandatory
+
+# A display name for the mod
+displayName = "Food Effects" #mandatory
+
+# A URL to query for updates for this mod. See the JSON update specification <here>
+#updateJSONURL="http://myurl.me/" #optional
+
+# A URL for the "homepage" for this mod, displayed in the mod UI
+#displayURL="https://discord.gg/UYGSn94" #optional
+
+# A file name (in the root of the mod JAR) containing a logo for display
+#logoFile = "logo.png" #optional
+
+# A text field displayed in the mod UI
+credits = "Thanks to Orilly, Pugz, and Nekomaster1000" #optional
+
+# A text field displayed in the mod UI
+authors = "HellionGames" #optional
+
+# The description text for the mod (multi line!) (#mandatory)
+description = '''
+This mod aims to re-balance Minecraft's various food items.
+'''
+
+[[dependencies.foodeffects]]
+modId="forge"
+mandatory=true
+versionRange="[32,)"
+ordering="NONE"
+side="BOTH"
+[[dependencies.foodeffects]]
+modId="minecraft"
+mandatory = true
+versionRange = "[1.16.3,1.17)"
+ordering = "NONE"
+side="BOTH"
