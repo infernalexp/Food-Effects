@@ -26,9 +26,11 @@ Food Effects aims to re-balance Minecraft's food items by giving them each uniqu
 
 - Eating a Pumpkin Pie gives the effect Haste for 15 seconds.
 
-- Eating a Pufferfish gives the effect Water Breathing for 120 seconds.
+- Eating a Pufferfish gives the effect Water Breathing for 10 seconds.
 
 - Drinking a Bottle of Honey gives the effect Instant Health.
+
+- Eating a Baked Potato gives the effect Strength for 10 seconds.
 
 ## 📰 Credits
 

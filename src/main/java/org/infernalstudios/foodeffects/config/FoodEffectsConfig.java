@@ -35,7 +35,9 @@ public class FoodEffectsConfig {
     public final ForgeConfigSpec.ConfigValue<String> PUMPKIN_PIE_EFFECT;
     public final ForgeConfigSpec.IntValue PUMPKIN_PIE_EFFECT_DURATION;
     public final ForgeConfigSpec.ConfigValue<String> HONEY_BOTTLE_EFFECT;
-    public final ForgeConfigSpec.IntValue HONEY_BOTTLE_EFFECT_DURATION;
+    public final ForgeConfigSpec.DoubleValue HONEY_BOTTLE_EFFECT_DURATION;
+    public final ForgeConfigSpec.ConfigValue<String> BAKED_POTATO_EFFECT;
+    public final ForgeConfigSpec.IntValue BAKED_POTATO_EFFECT_DURATION;
 
     public static final ForgeConfigSpec COMMON_SPEC;
     public static final FoodEffectsConfig COMMON;
@@ -59,7 +61,7 @@ public class FoodEffectsConfig {
 
         PUFFERFISH_EFFECT_DURATION = builder
                 .comment("Determines how long (in seconds) the Pufferfish Food Effect will last")
-                .defineInRange("pufferfish_effect_duration", 120, 0, Integer.MAX_VALUE);
+                .defineInRange("pufferfish_effect_duration", 10, 0, Integer.MAX_VALUE);
 
         PUFFERFISH_EFFECT = builder
                 .comment("Determines what effect consuming Pufferfish will give (in addition to existing effects)")
@@ -107,11 +109,19 @@ public class FoodEffectsConfig {
 
         HONEY_BOTTLE_EFFECT_DURATION = builder
                 .comment("Determines how long (in seconds) the Honey Bottle Food Effect will last")
-                .defineInRange("honey_bottle_effect_duration", 1, 0, Integer.MAX_VALUE);
+                .defineInRange("honey_bottle_effect_duration", 0.05, 0, Double.MAX_VALUE);
 
         HONEY_BOTTLE_EFFECT = builder
                 .comment("Determines what effect consuming Honey Bottles will give")
                 .define("honey_bottle_effect", "minecraft:instant_health");
+
+        BAKED_POTATO_EFFECT = builder
+                .comment("Determines what effect consuming Baked Potatoes will give")
+                .define("baked_potato_effect", "minecraft:strength");
+
+        BAKED_POTATO_EFFECT_DURATION = builder
+                .comment("Determines how long (in seconds) the Baked Potatoes Food Effect will last")
+                .defineInRange("pumpkin_pie_effect_duration", 10, 0, Integer.MAX_VALUE);
 
         builder.pop();
 
