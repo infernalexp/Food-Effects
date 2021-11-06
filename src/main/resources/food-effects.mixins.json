@@ -2,7 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "org.infernalstudios.foodeffects.mixin",
-  "refmap": "mining-master.refmap.json",
+  "refmap": "food-effects.refmap.json",
   "compatibilityLevel": "JAVA_8",
   "injectors": {
     "defaultRequire": 1
