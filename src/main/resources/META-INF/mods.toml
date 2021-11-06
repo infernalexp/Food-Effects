@@ -27,17 +27,23 @@ displayName = "Food Effects" #mandatory
 #displayURL="https://discord.gg/UYGSn94" #optional
 
 # A file name (in the root of the mod JAR) containing a logo for display
-#logoFile = "logo.png" #optional
+logoFile = "Food_Effects_Logo.png" #optional
 
 # A text field displayed in the mod UI
-credits = "Thanks to Orilly, Pugz, and Nekomaster1000" #optional
+credits = "See the description!" #optional
 
 # A text field displayed in the mod UI
-authors = "HellionGames" #optional
+authors = "Infernal Studios" #optional
 
 # The description text for the mod (multi line!) (#mandatory)
 description = '''
-This mod aims to re-balance Minecraft's various food items.
+Food Effects aims to re-balance Minecraft's various food items by giving each of them unique Effects upon consumption.
+You can edit what food gives what effect, the duration of that effect, and the amplifier/level of the effect in the config!
+
+Credits
+HellionGames - Developer
+Nekomaster1000 - Conceptualiser, Artist
+Orilly, Pugz - Legacy Developers
 '''
 
 [[dependencies.foodeffects]]

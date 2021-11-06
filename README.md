@@ -2,7 +2,10 @@
 
 ## 📖 About
 
-Food Effects aims to re-balance Minecraft's food items by giving them each unique effects upon consumption. It was designed with the aim of being highly configurable, allowing you to edit the mod however you see fit!
+Food Effects aims to re-balance Minecraft's various food items by giving each of them unique Effects upon consumption. 
+
+It was designed with the aim of being highly configurable, and so you can change the Effect any food item gives you, 
+the duration of that effect, and the amplifier/level of the effect too, all through the in-game config!
 
 ## 🎮 Content
 
@@ -32,29 +35,15 @@ Food Effects aims to re-balance Minecraft's food items by giving them each uniqu
 
 - Eating a Baked Potato gives the effect Strength for 10 seconds.
 
+- Eating a slice of Cake gives the effect Speed II for 20 seconds.
+
 ## 📰 Credits
 
 HellionGames - Developer
 
-Orilly - Developer
+Nekomaster1000 - Artist and Conceptualiser
 
-Pugz - Developer
-
-Nekomaster1000 - Texture Artist & Ideas Guy
-
-## ❤️ Special Thanks
-
-ex0planetary
-
-Gkoliver
-
-SmellyModder
-
-TechnoVision
-
-TurtyWurty
-
-
+Orilly & Pugz - Legacy Developers
 
 ## License
 [Apache-2.0](https://choosealicense.com/licenses/apache-2.0/)
