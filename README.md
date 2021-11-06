@@ -25,7 +25,7 @@ the duration of that effect, and the amplifier/level of the effect too, all thro
 
 - Eating a Beetroot Soup gives the effect Health Boost (2 hearts) for 30 seconds.
 
-- Eating a Cookie gives the effect Speed II for 5 seconds.
+- Eating a Cookie gives the effect Speed I for 10 seconds.
 
 - Eating a Pumpkin Pie gives the effect Haste for 15 seconds.
 
