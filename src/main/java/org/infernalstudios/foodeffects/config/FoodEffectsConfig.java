@@ -133,7 +133,7 @@ public class FoodEffectsConfig {
 
         COOKIE_EFFECT_DURATION = builder
                 .comment("Determines how long (in seconds) the Cookie Food Effect will last")
-                .defineInRange("cookie_effect_duration", 5.0, 0, 1000000);
+                .defineInRange("cookie_effect_duration", 10.0, 0, 1000000);
 
         COOKIE_EFFECT_AMPLIFIER = builder
                 .comment("Determines what level the Cookie Food Effect will be (starting at 0 as level 1)")
