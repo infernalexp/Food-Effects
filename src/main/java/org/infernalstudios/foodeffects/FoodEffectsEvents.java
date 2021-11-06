@@ -16,8 +16,6 @@
 
 package org.infernalstudios.foodeffects;
 
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import org.infernalstudios.foodeffects.config.FoodEffectsConfig;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -30,6 +28,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.IForgeRegistry;
+import org.infernalstudios.foodeffects.config.FoodEffectsConfig;
 
 @EventBusSubscriber(modid = FoodEffects.MOD_ID)
 public class FoodEffectsEvents {
@@ -58,42 +57,42 @@ public class FoodEffectsEvents {
         } else if (stack.getItem() == Items.PUFFERFISH) {
             Effect pufferfishEffect = EFFECTS.getValue(new ResourceLocation(this.config.PUFFERFISH_EFFECT.get()));
             if (pufferfishEffect != null) {
-                player.addPotionEffect(new EffectInstance(pufferfishEffect, (int)(this.config.PUFFERFISH_EFFECT_DURATION.get() * 20), 0));
+                player.addPotionEffect(new EffectInstance(pufferfishEffect, (int)(this.config.PUFFERFISH_EFFECT_DURATION.get() * 20), this.config.PUFFERFISH_EFFECT_AMPLIFIER.get()));
             }
         } else if (stack.getItem() == Items.MUSHROOM_STEW) {
             Effect mushroomStewEffect = EFFECTS.getValue(new ResourceLocation(this.config.MUSHROOM_STEW_EFFECT.get()));
             if (mushroomStewEffect != null) {
-                player.addPotionEffect(new EffectInstance(mushroomStewEffect, (int)(this.config.MUSHROOM_STEW_EFFECT_DURATION.get() * 20), 1));
+                player.addPotionEffect(new EffectInstance(mushroomStewEffect, (int)(this.config.MUSHROOM_STEW_EFFECT_DURATION.get() * 20), this.config.MUSHROOM_STEW_EFFECT_AMPLIFIER.get()));
             }
         } else if (stack.getItem() == Items.RABBIT_STEW) {
             Effect rabbitStewEffect = EFFECTS.getValue(new ResourceLocation(this.config.RABBIT_STEW_EFFECT.get()));
             if (rabbitStewEffect != null) {
-                player.addPotionEffect(new EffectInstance(rabbitStewEffect, (int)(this.config.RABBIT_STEW_EFFECT_DURATION.get() * 20), 1));
+                player.addPotionEffect(new EffectInstance(rabbitStewEffect, (int)(this.config.RABBIT_STEW_EFFECT_DURATION.get() * 20), this.config.RABBIT_STEW_EFFECT_AMPLIFIER.get()));
             }
         } else if (stack.getItem() == Items.BEETROOT_SOUP) {
             Effect beetrootSoupEffect = EFFECTS.getValue(new ResourceLocation(this.config.BEETROOT_SOUP_EFFECT.get()));
             if (beetrootSoupEffect != null) {
-                player.addPotionEffect(new EffectInstance(beetrootSoupEffect, (int)(this.config.BEETROOT_SOUP_EFFECT_DURATION.get() * 20), 0));
+                player.addPotionEffect(new EffectInstance(beetrootSoupEffect, (int)(this.config.BEETROOT_SOUP_EFFECT_DURATION.get() * 20), this.config.BEETROOT_SOUP_EFFECT_AMPLIFIER.get()));
             }
         } else if (stack.getItem() == Items.COOKIE) {
             Effect cookieEffect = EFFECTS.getValue(new ResourceLocation(this.config.COOKIE_EFFECT.get()));
             if (cookieEffect != null) {
-                player.addPotionEffect(new EffectInstance(cookieEffect, (int)(this.config.COOKIE_EFFECT_DURATION.get() * 20), 0));
+                player.addPotionEffect(new EffectInstance(cookieEffect, (int)(this.config.COOKIE_EFFECT_DURATION.get() * 20), this.config.COOKIE_EFFECT_AMPLIFIER.get()));
             }
         } else if (stack.getItem() == Items.PUMPKIN_PIE) {
             Effect pumpkinPieEffect = EFFECTS.getValue(new ResourceLocation(this.config.PUMPKIN_PIE_EFFECT.get()));
             if (pumpkinPieEffect != null) {
-                player.addPotionEffect(new EffectInstance(pumpkinPieEffect, (int)(this.config.PUMPKIN_PIE_EFFECT_DURATION.get() * 20), 1));
+                player.addPotionEffect(new EffectInstance(pumpkinPieEffect, (int)(this.config.PUMPKIN_PIE_EFFECT_DURATION.get() * 20), this.config.PUMPKIN_PIE_EFFECT_AMPLIFIER.get()));
             }
         } else if (stack.getItem() == Items.HONEY_BOTTLE) {
             Effect honeyBottleEffect = EFFECTS.getValue(new ResourceLocation(this.config.HONEY_BOTTLE_EFFECT.get()));
             if (honeyBottleEffect != null) {
-                player.addPotionEffect(new EffectInstance(honeyBottleEffect, (int)(this.config.HONEY_BOTTLE_EFFECT_DURATION.get() * 20), 0));
+                player.addPotionEffect(new EffectInstance(honeyBottleEffect, (int)(this.config.HONEY_BOTTLE_EFFECT_DURATION.get() * 20), this.config.HONEY_BOTTLE_EFFECT_AMPLIFIER.get()));
             }
         } else if (stack.getItem() == Items.BAKED_POTATO) {
             Effect bakedPotatoEffect = EFFECTS.getValue(new ResourceLocation(this.config.BAKED_POTATO_EFFECT.get()));
             if (bakedPotatoEffect != null) {
-                player.addPotionEffect(new EffectInstance(bakedPotatoEffect, (int)(this.config.BAKED_POTATO_EFFECT_DURATION.get() * 20), 0));
+                player.addPotionEffect(new EffectInstance(bakedPotatoEffect, (int)(this.config.BAKED_POTATO_EFFECT_DURATION.get() * 20), this.config.BAKED_POTATO_EFFECT_AMPLIFIER.get()));
             }
         }
     }
