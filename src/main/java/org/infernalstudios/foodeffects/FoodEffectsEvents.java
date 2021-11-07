@@ -46,6 +46,7 @@ public class FoodEffectsEvents {
 
     @SubscribeEvent
     public void onLivingEntityUseItemFinish(LivingEntityUseItemEvent.Finish event) {
+        if (!(event.getEntity() instanceof PlayerEntity)) return;
         ItemStack stack = event.getItem();
         PlayerEntity player = (PlayerEntity) event.getEntity();
         IForgeRegistry<Effect> EFFECTS = ForgeRegistries.POTIONS;
