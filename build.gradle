@@ -167,6 +167,7 @@ task publishModrinth (type: TaskModrinthUpload) {
     token = System.getenv('MODRINTH')
     projectId = config.MODRINTH_ID ?: 'No Modrinth ID set!'
     versionNumber = project.version
+    versionName = "Food Effects Release ${project.version}"
     uploadFile = jar
     addFile(sourcesJar)
     addGameVersion(config.MINECRAFT_VERSION)
@@ -185,7 +186,7 @@ if (System.getenv().containsKey('CURSEFORGE')) {
             addGameVersion config.MINECRAFT_VERSION
             addArtifact(sourcesJar)
             mainArtifact (jar) {
-                displayName = "${project.version}"
+                displayName = "Food Effects Release ${project.version}"
             }
         }
     }
