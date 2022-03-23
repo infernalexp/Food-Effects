@@ -16,84 +16,127 @@
 
 package org.infernalstudios.foodeffects;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.potion.Effect;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.ResourceLocation;
+import static net.minecraftforge.registries.ForgeRegistries.MOB_EFFECTS;
+import static org.infernalstudios.foodeffects.config.FoodEffectsConfig.COMMON;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Supplier;
+
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
-import org.infernalstudios.foodeffects.config.FoodEffectsConfig;
 
 @EventBusSubscriber(modid = FoodEffects.MOD_ID)
 public class FoodEffectsEvents {
-    private final FoodEffectsConfig config = FoodEffectsConfig.COMMON;
-
     @SubscribeEvent
     public void onLivingEntityUseItemStart(LivingEntityUseItemEvent.Start event) {
         ItemStack stack = event.getItem();
 
-        if ((stack.getItem() == Items.COOKIE || stack.getItem() == Items.SWEET_BERRIES) && this.config.EAT_COOKIES_BERRIES_FAST.get()) {
+        if ((stack.getItem() == Items.COOKIE || stack.getItem() == Items.SWEET_BERRIES) && COMMON.EAT_COOKIES_BERRIES_FAST.get()) {
             // Default is 32, 16 is twice as fast, just like Dried Kelp
             event.setDuration(16);
         }
     }
 
+    private static record EffectData(Supplier<MobEffect> effect, Supplier<Integer> duration, Supplier<Integer> amplifier) {}
+    
+    private static final Map<Item, EffectData> EFFECT_MAP = new HashMap<>();
+    static {
+        EFFECT_MAP.put(
+            Items.PUFFERFISH,
+            new EffectData(
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.PUFFERFISH_EFFECT.get())),
+                () -> (int)(COMMON.PUFFERFISH_EFFECT_DURATION.get() * 20),
+                () -> COMMON.PUFFERFISH_EFFECT_AMPLIFIER.get()
+            )
+        );
+        EFFECT_MAP.put(
+            Items.MUSHROOM_STEW,
+            new EffectData(
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.MUSHROOM_STEW_EFFECT.get())),
+                () -> (int)(COMMON.MUSHROOM_STEW_EFFECT_DURATION.get() * 20),
+                () -> COMMON.MUSHROOM_STEW_EFFECT_AMPLIFIER.get()
+            )
+        );
+        EFFECT_MAP.put(
+            Items.RABBIT_STEW,
+            new EffectData(
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.RABBIT_STEW_EFFECT.get())),
+                () -> (int)(COMMON.RABBIT_STEW_EFFECT_DURATION.get() * 20),
+                () -> COMMON.RABBIT_STEW_EFFECT_AMPLIFIER.get()
+            )
+        );
+        EFFECT_MAP.put(
+            Items.BEETROOT_SOUP,
+            new EffectData(
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.BEETROOT_SOUP_EFFECT.get())),
+                () -> (int)(COMMON.BEETROOT_SOUP_EFFECT_DURATION.get() * 20),
+                () -> COMMON.BEETROOT_SOUP_EFFECT_AMPLIFIER.get()
+            )
+        );
+        EFFECT_MAP.put(
+            Items.COOKIE,
+            new EffectData(
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.COOKIE_EFFECT.get())),
+                () -> (int)(COMMON.COOKIE_EFFECT_DURATION.get() * 20),
+                () -> COMMON.COOKIE_EFFECT_AMPLIFIER.get()
+            )
+        );
+        EFFECT_MAP.put(
+            Items.PUMPKIN_PIE,
+            new EffectData(
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.PUMPKIN_PIE_EFFECT.get())),
+                () -> (int)(COMMON.PUMPKIN_PIE_EFFECT_DURATION.get() * 20),
+                () -> COMMON.PUMPKIN_PIE_EFFECT_AMPLIFIER.get()
+            )
+        );
+        EFFECT_MAP.put(
+            Items.HONEY_BOTTLE,
+            new EffectData(
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.HONEY_BOTTLE_EFFECT.get())),
+                () -> (int)(COMMON.HONEY_BOTTLE_EFFECT_DURATION.get() * 20),
+                () -> COMMON.HONEY_BOTTLE_EFFECT_AMPLIFIER.get()
+            )
+        );
+        EFFECT_MAP.put(
+            Items.BAKED_POTATO,
+            new EffectData(
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.BAKED_POTATO_EFFECT.get())),
+                () -> (int)(COMMON.BAKED_POTATO_EFFECT_DURATION.get() * 20),
+                () -> COMMON.BAKED_POTATO_EFFECT_AMPLIFIER.get()
+            )
+        );
+    }
+
+
     @SubscribeEvent
     public void onLivingEntityUseItemFinish(LivingEntityUseItemEvent.Finish event) {
-        if (!(event.getEntity() instanceof PlayerEntity)) return;
-        ItemStack stack = event.getItem();
-        PlayerEntity player = (PlayerEntity) event.getEntity();
-        IForgeRegistry<Effect> EFFECTS = ForgeRegistries.POTIONS;
-
-        if (stack.getItem() == Items.DRIED_KELP) {
-            player.removePotionEffect(Effects.POISON);
-            player.removePotionEffect(Effects.NAUSEA);
-            player.removePotionEffect(Effects.BLINDNESS);
-        } else if (stack.getItem() == Items.PUFFERFISH) {
-            Effect pufferfishEffect = EFFECTS.getValue(new ResourceLocation(this.config.PUFFERFISH_EFFECT.get()));
-            if (pufferfishEffect != null) {
-                player.addPotionEffect(new EffectInstance(pufferfishEffect, (int)(this.config.PUFFERFISH_EFFECT_DURATION.get() * 20), this.config.PUFFERFISH_EFFECT_AMPLIFIER.get()));
-            }
-        } else if (stack.getItem() == Items.MUSHROOM_STEW) {
-            Effect mushroomStewEffect = EFFECTS.getValue(new ResourceLocation(this.config.MUSHROOM_STEW_EFFECT.get()));
-            if (mushroomStewEffect != null) {
-                player.addPotionEffect(new EffectInstance(mushroomStewEffect, (int)(this.config.MUSHROOM_STEW_EFFECT_DURATION.get() * 20), this.config.MUSHROOM_STEW_EFFECT_AMPLIFIER.get()));
-            }
-        } else if (stack.getItem() == Items.RABBIT_STEW) {
-            Effect rabbitStewEffect = EFFECTS.getValue(new ResourceLocation(this.config.RABBIT_STEW_EFFECT.get()));
-            if (rabbitStewEffect != null) {
-                player.addPotionEffect(new EffectInstance(rabbitStewEffect, (int)(this.config.RABBIT_STEW_EFFECT_DURATION.get() * 20), this.config.RABBIT_STEW_EFFECT_AMPLIFIER.get()));
-            }
-        } else if (stack.getItem() == Items.BEETROOT_SOUP) {
-            Effect beetrootSoupEffect = EFFECTS.getValue(new ResourceLocation(this.config.BEETROOT_SOUP_EFFECT.get()));
-            if (beetrootSoupEffect != null) {
-                player.addPotionEffect(new EffectInstance(beetrootSoupEffect, (int)(this.config.BEETROOT_SOUP_EFFECT_DURATION.get() * 20), this.config.BEETROOT_SOUP_EFFECT_AMPLIFIER.get()));
-            }
-        } else if (stack.getItem() == Items.COOKIE) {
-            Effect cookieEffect = EFFECTS.getValue(new ResourceLocation(this.config.COOKIE_EFFECT.get()));
-            if (cookieEffect != null) {
-                player.addPotionEffect(new EffectInstance(cookieEffect, (int)(this.config.COOKIE_EFFECT_DURATION.get() * 20), this.config.COOKIE_EFFECT_AMPLIFIER.get()));
-            }
-        } else if (stack.getItem() == Items.PUMPKIN_PIE) {
-            Effect pumpkinPieEffect = EFFECTS.getValue(new ResourceLocation(this.config.PUMPKIN_PIE_EFFECT.get()));
-            if (pumpkinPieEffect != null) {
-                player.addPotionEffect(new EffectInstance(pumpkinPieEffect, (int)(this.config.PUMPKIN_PIE_EFFECT_DURATION.get() * 20), this.config.PUMPKIN_PIE_EFFECT_AMPLIFIER.get()));
-            }
-        } else if (stack.getItem() == Items.HONEY_BOTTLE) {
-            Effect honeyBottleEffect = EFFECTS.getValue(new ResourceLocation(this.config.HONEY_BOTTLE_EFFECT.get()));
-            if (honeyBottleEffect != null) {
-                player.addPotionEffect(new EffectInstance(honeyBottleEffect, (int)(this.config.HONEY_BOTTLE_EFFECT_DURATION.get() * 20), this.config.HONEY_BOTTLE_EFFECT_AMPLIFIER.get()));
-            }
-        } else if (stack.getItem() == Items.BAKED_POTATO) {
-            Effect bakedPotatoEffect = EFFECTS.getValue(new ResourceLocation(this.config.BAKED_POTATO_EFFECT.get()));
-            if (bakedPotatoEffect != null) {
-                player.addPotionEffect(new EffectInstance(bakedPotatoEffect, (int)(this.config.BAKED_POTATO_EFFECT_DURATION.get() * 20), this.config.BAKED_POTATO_EFFECT_AMPLIFIER.get()));
+        if (event.getEntity() instanceof Player player) {
+            ItemStack stack = event.getItem();
+    
+            if (stack.getItem() == Items.DRIED_KELP) {
+                player.removeEffect(MobEffects.POISON);
+                player.removeEffect(MobEffects.CONFUSION);
+                player.removeEffect(MobEffects.BLINDNESS);
+            } else {
+                EffectData effectData = EFFECT_MAP.get(stack.getItem());
+                if (effectData != null) {
+                    MobEffectInstance effect = new MobEffectInstance(
+                        effectData.effect.get(),
+                        effectData.duration.get(),
+                        effectData.amplifier.get()
+                    );
+                    player.addEffect(effect);
+                }
             }
         }
     }

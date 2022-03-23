@@ -1,14 +1,12 @@
 name: Build
-
 on:
-  workflow_dispatch:
   push:
-    branches: [ main ]
+    branches: [ '1.18' ]
     paths:
       - 'build.gradle'
       - 'build.properties'
   pull_request:
-    branches: [ main ]
+    branches: [ '1.18' ]
     paths:
       - 'src/**'
       - 'build.gradle'
@@ -23,18 +21,12 @@ jobs:
 
       - name: Validate Gradle Wrapper
         uses: gradle/wrapper-validation-action@v1
-
-      - name: Cache Gradle packages
-        uses: actions/cache@v2
-        with:
-          path: ~/.gradle/caches
-          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
-          restore-keys: ${{ runner.os }}-gradle
-
+          
       - uses: actions/setup-java@v2
         with:
-          distribution: 'adopt'
-          java-version: '16'
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
 
       - name: Gradle Build
         run: ./gradlew build
@@ -42,5 +34,5 @@ jobs:
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: Artifacts
+          name: build-artifacts
           path: build/libs/
