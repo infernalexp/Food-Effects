@@ -17,11 +17,13 @@
 package org.infernalstudios.foodeffects;
 
 import static net.minecraftforge.registries.ForgeRegistries.MOB_EFFECTS;
-import static org.infernalstudios.foodeffects.config.FoodEffectsConfig.COMMON;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
+
+import org.infernalstudios.foodeffects.config.FoodEffectsConfig.Effects;
+import org.infernalstudios.foodeffects.config.FoodEffectsConfig.General;
 
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
@@ -41,7 +43,7 @@ public class FoodEffectsEvents {
     public void onLivingEntityUseItemStart(LivingEntityUseItemEvent.Start event) {
         ItemStack stack = event.getItem();
 
-        if ((stack.getItem() == Items.COOKIE || stack.getItem() == Items.SWEET_BERRIES) && COMMON.EAT_COOKIES_BERRIES_FAST.get()) {
+        if ((stack.getItem() == Items.COOKIE || stack.getItem() == Items.SWEET_BERRIES) && General.eat_cookies_berries_fast) {
             // Default is 32, 16 is twice as fast, just like Dried Kelp
             event.setDuration(16);
         }
@@ -54,65 +56,65 @@ public class FoodEffectsEvents {
         EFFECT_MAP.put(
             Items.PUFFERFISH,
             new EffectData(
-                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.PUFFERFISH_EFFECT.get())),
-                () -> (int)(COMMON.PUFFERFISH_EFFECT_DURATION.get() * 20),
-                () -> COMMON.PUFFERFISH_EFFECT_AMPLIFIER.get()
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(Effects.pufferfish_effect)),
+                () -> (int)(Effects.pufferfish_effect_duration * 20),
+                () -> Effects.pufferfish_effect_amplifier
             )
         );
         EFFECT_MAP.put(
             Items.MUSHROOM_STEW,
             new EffectData(
-                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.MUSHROOM_STEW_EFFECT.get())),
-                () -> (int)(COMMON.MUSHROOM_STEW_EFFECT_DURATION.get() * 20),
-                () -> COMMON.MUSHROOM_STEW_EFFECT_AMPLIFIER.get()
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(Effects.mushroom_stew_effect)),
+                () -> (int)(Effects.mushroom_stew_effect_duration * 20),
+                () -> Effects.mushroom_stew_effect_amplifier
             )
         );
         EFFECT_MAP.put(
             Items.RABBIT_STEW,
             new EffectData(
-                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.RABBIT_STEW_EFFECT.get())),
-                () -> (int)(COMMON.RABBIT_STEW_EFFECT_DURATION.get() * 20),
-                () -> COMMON.RABBIT_STEW_EFFECT_AMPLIFIER.get()
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(Effects.rabbit_stew_effect)),
+                () -> (int)(Effects.rabbit_stew_effect_duration * 20),
+                () -> Effects.rabbit_stew_effect_amplifier
             )
         );
         EFFECT_MAP.put(
             Items.BEETROOT_SOUP,
             new EffectData(
-                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.BEETROOT_SOUP_EFFECT.get())),
-                () -> (int)(COMMON.BEETROOT_SOUP_EFFECT_DURATION.get() * 20),
-                () -> COMMON.BEETROOT_SOUP_EFFECT_AMPLIFIER.get()
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(Effects.beetroot_soup_effect)),
+                () -> (int)(Effects.beetroot_soup_effect_duration * 20),
+                () -> Effects.beetroot_soup_effect_amplifier
             )
         );
         EFFECT_MAP.put(
             Items.COOKIE,
             new EffectData(
-                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.COOKIE_EFFECT.get())),
-                () -> (int)(COMMON.COOKIE_EFFECT_DURATION.get() * 20),
-                () -> COMMON.COOKIE_EFFECT_AMPLIFIER.get()
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(Effects.cookie_effect)),
+                () -> (int)(Effects.cookie_effect_duration * 20),
+                () -> Effects.cookie_effect_amplifier
             )
         );
         EFFECT_MAP.put(
             Items.PUMPKIN_PIE,
             new EffectData(
-                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.PUMPKIN_PIE_EFFECT.get())),
-                () -> (int)(COMMON.PUMPKIN_PIE_EFFECT_DURATION.get() * 20),
-                () -> COMMON.PUMPKIN_PIE_EFFECT_AMPLIFIER.get()
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(Effects.pumpkin_pie_effect)),
+                () -> (int)(Effects.pumpkin_pie_effect_duration * 20),
+                () -> Effects.pumpkin_pie_effect_amplifier
             )
         );
         EFFECT_MAP.put(
             Items.HONEY_BOTTLE,
             new EffectData(
-                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.HONEY_BOTTLE_EFFECT.get())),
-                () -> (int)(COMMON.HONEY_BOTTLE_EFFECT_DURATION.get() * 20),
-                () -> COMMON.HONEY_BOTTLE_EFFECT_AMPLIFIER.get()
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(Effects.honey_bottle_effect)),
+                () -> (int)(Effects.honey_bottle_effect_duration * 20),
+                () -> Effects.honey_bottle_effect_amplifier
             )
         );
         EFFECT_MAP.put(
             Items.BAKED_POTATO,
             new EffectData(
-                () -> MOB_EFFECTS.getValue(new ResourceLocation(COMMON.BAKED_POTATO_EFFECT.get())),
-                () -> (int)(COMMON.BAKED_POTATO_EFFECT_DURATION.get() * 20),
-                () -> COMMON.BAKED_POTATO_EFFECT_AMPLIFIER.get()
+                () -> MOB_EFFECTS.getValue(new ResourceLocation(Effects.baked_potato_effect)),
+                () -> (int)(Effects.baked_potato_effect_duration * 20),
+                () -> Effects.baked_potato_effect_amplifier
             )
         );
     }

@@ -16,177 +16,117 @@
 
 package org.infernalstudios.foodeffects.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.Builder;
-import org.apache.commons.lang3.tuple.Pair;
+import org.infernalstudios.config.annotation.Category;
+import org.infernalstudios.config.annotation.Configurable;
+import org.infernalstudios.config.annotation.DoubleRange;
+import org.infernalstudios.config.annotation.IntegerRange;
 
 public class FoodEffectsConfig {
-    public static final ForgeConfigSpec COMMON_SPEC;
-    public static final FoodEffectsConfig COMMON;
-
-    static {
-        final Pair<FoodEffectsConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(FoodEffectsConfig::new);
-        COMMON_SPEC = specPair.getRight();
-        COMMON = specPair.getLeft();
+    @Category("General")
+    public static class General {
+        @Configurable(description = "Determines if Sweet Berries and Cookies should be eaten as fast as Dried Kelp")
+        public static boolean eat_cookies_berries_fast = true;
     }
 
-    public final ForgeConfigSpec.BooleanValue EAT_COOKIES_BERRIES_FAST;
+    @Category("Effects")
+    public static class Effects {
+        @Configurable(description = "Determines what effect consuming Pufferfish will give (in addition to existing effects)")
+        public static String pufferfish_effect = "minecraft:water_breathing";
 
-    public final ForgeConfigSpec.ConfigValue<String> PUFFERFISH_EFFECT;
-    public final ForgeConfigSpec.DoubleValue PUFFERFISH_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue PUFFERFISH_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines how long (in seconds) the Pufferfish Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double pufferfish_effect_duration = 10.0;
 
-    public final ForgeConfigSpec.ConfigValue<String> MUSHROOM_STEW_EFFECT;
-    public final ForgeConfigSpec.DoubleValue MUSHROOM_STEW_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue MUSHROOM_STEW_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines what level the Pufferfish Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int pufferfish_effect_amplifier = 0;
 
-    public final ForgeConfigSpec.ConfigValue<String> RABBIT_STEW_EFFECT;
-    public final ForgeConfigSpec.DoubleValue RABBIT_STEW_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue RABBIT_STEW_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines what effect consuming Mushroom Stew will give")
+        public static String mushroom_stew_effect = "minecraft:regeneration";
 
-    public final ForgeConfigSpec.ConfigValue<String> BEETROOT_SOUP_EFFECT;
-    public final ForgeConfigSpec.DoubleValue BEETROOT_SOUP_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue BEETROOT_SOUP_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines how long (in seconds) the Mushroom Stew Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double mushroom_stew_effect_duration = 5.0;
 
-    public final ForgeConfigSpec.ConfigValue<String> COOKIE_EFFECT;
-    public final ForgeConfigSpec.DoubleValue COOKIE_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue COOKIE_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines what level the Mushroom Stew Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int mushroom_stew_effect_amplifier = 1;
 
-    public final ForgeConfigSpec.ConfigValue<String> PUMPKIN_PIE_EFFECT;
-    public final ForgeConfigSpec.DoubleValue PUMPKIN_PIE_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue PUMPKIN_PIE_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines what effect consuming Rabbit Stew will give")
+        public static String rabbit_stew_effect = "minecraft:jump_boost";
 
-    public final ForgeConfigSpec.ConfigValue<String> HONEY_BOTTLE_EFFECT;
-    public final ForgeConfigSpec.DoubleValue HONEY_BOTTLE_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue HONEY_BOTTLE_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines how long (in seconds) the Rabbit Stew Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double rabbit_stew_effect_duration = 10.0;
 
-    public final ForgeConfigSpec.ConfigValue<String> BAKED_POTATO_EFFECT;
-    public final ForgeConfigSpec.DoubleValue BAKED_POTATO_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue BAKED_POTATO_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines what level the Rabbit Stew Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int rabbit_stew_effect_amplifier = 1;
 
-    public final ForgeConfigSpec.ConfigValue<String> CAKE_EFFECT;
-    public final ForgeConfigSpec.DoubleValue CAKE_EFFECT_DURATION;
-    public final ForgeConfigSpec.IntValue CAKE_EFFECT_AMPLIFIER;
+        @Configurable(description = "Determines what effect consuming Beetroot Soup will give")
+        public static String beetroot_soup_effect = "minecraft:health_boost";
 
-    public FoodEffectsConfig(Builder builder) {
-        builder.push("General");
+        @Configurable(description = "Determines how long (in seconds) the Beetroot Soup Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double beetroot_soup_effect_duration = 30.0;
 
-        EAT_COOKIES_BERRIES_FAST = builder
-                .comment("Determines if Sweet Berries and Cookies should be eaten as fast as Dried Kelp")
-                .define("eat_cookies_berries_fast", true);
+        @Configurable(description = "Determines what level the Beetroot Soup Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int beetroot_soup_effect_amplifier = 0;
 
-        builder.pop();
+        @Configurable(description = "Determines what effect consuming Cookies will give")
+        public static String cookie_effect = "minecraft:speed";
 
-        builder.push("Effects");
+        @Configurable(description = "Determines how long (in seconds) the Cookie Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double cookie_effect_duration = 10.0;
 
-        PUFFERFISH_EFFECT = builder
-                .comment("Determines what effect consuming Pufferfish will give (in addition to existing effects)")
-                .define("pufferfish_effect", "minecraft:water_breathing");
+        @Configurable(description = "Determines what level the Cookie Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int cookie_effect_amplifier = 0;
 
-        PUFFERFISH_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Pufferfish Food Effect will last")
-                .defineInRange("pufferfish_effect_duration", 10.0, 0, 1000000);
+        @Configurable(description = "Determines what effect consuming Pumpkin Pie will give")
+        public static String pumpkin_pie_effect = "minecraft:haste";
 
-        PUFFERFISH_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Pufferfish Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("pufferfish_effect_amplifier", 0, 0, 255);
+        @Configurable(description = "Determines how long (in seconds) the Pumpkin Pie Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double pumpkin_pie_effect_duration = 15.0;
 
-        MUSHROOM_STEW_EFFECT = builder
-                .comment("Determines what effect consuming Mushroom Stew will give")
-                .define("mushroom_stew_effect", "minecraft:regeneration");
+        @Configurable(description = "Determines what level the Pumpkin Pie Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int pumpkin_pie_effect_amplifier = 1;
 
-        MUSHROOM_STEW_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Mushroom Stew Food Effect will last")
-                .defineInRange("mushroom_stew_effect_duration", 5.0, 0, 1000000);
+        @Configurable(description = "Determines what effect consuming Honey Bottles will give")
+        public static String honey_bottle_effect = "minecraft:instant_health";
 
-        MUSHROOM_STEW_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Mushroom Stew Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("mushroom_stew_effect_amplifier", 1, 0, 255);
+        @Configurable(description = "Determines how long (in seconds) the Honey Bottle Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double honey_bottle_effect_duration = 0.05;
 
-        RABBIT_STEW_EFFECT = builder
-                .comment("Determines what effect consuming Rabbit Stew will give")
-                .define("rabbit_stew_effect", "minecraft:jump_boost");
+        @Configurable(description = "Determines what level the Honey Bottle Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int honey_bottle_effect_amplifier = 0;
 
-        RABBIT_STEW_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Rabbit Stew Food Effect will last")
-                .defineInRange("rabbit_stew_effect_duration", 10.0, 0, 1000000);
+        @Configurable(description = "Determines what effect consuming Baked Potatoes will give")
+        public static String baked_potato_effect = "minecraft:strength";
 
-        RABBIT_STEW_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Rabbit Stew Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("rabbit_stew_effect_amplifier", 1, 0, 255);
+        @Configurable(description = "Determines how long (in seconds) the Baked Potatoes Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double baked_potato_effect_duration = 10.0;
 
-        BEETROOT_SOUP_EFFECT = builder
-                .comment("Determines what effect consuming Beetroot Soup will give")
-                .define("beetroot_soup_effect", "minecraft:health_boost");
+        @Configurable(description = "Determines what level the Baked Potato Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int baked_potato_effect_amplifier = 0;
 
-        BEETROOT_SOUP_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Beetroot Soup Food Effect will last")
-                .defineInRange("beetroot_soup_effect_duration", 30.0, 0, 1000000);
+        @Configurable(description = "Determines what effect consuming a slice of Cake will give")
+        public static String cake_effect = "minecraft:speed";
 
-        BEETROOT_SOUP_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Beetroot Soup Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("beetroot_soup_effect_amplifier", 0, 0, 255);
+        @Configurable(description = "Determines how long (in seconds) the Cake Food Effect will last")
+        @DoubleRange(min = 0, max = 1000000)
+        public static double cake_effect_duration = 20.0;
 
-        COOKIE_EFFECT = builder
-                .comment("Determines what effect consuming Cookies will give")
-                .define("cookie_effect", "minecraft:speed");
-
-        COOKIE_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Cookie Food Effect will last")
-                .defineInRange("cookie_effect_duration", 10.0, 0, 1000000);
-
-        COOKIE_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Cookie Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("cookie_effect_amplifier", 0, 0, 255);
-
-        PUMPKIN_PIE_EFFECT = builder
-                .comment("Determines what effect consuming Pumpkin Pie will give")
-                .define("pumpkin_pie_effect", "minecraft:haste");
-
-        PUMPKIN_PIE_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Pumpkin Pie Food Effect will last")
-                .defineInRange("pumpkin_pie_effect_duration", 15.0, 0, 1000000);
-
-        PUMPKIN_PIE_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Pumpkin Pie Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("pumpkin_pie_effect_amplifier", 1, 0, 255);
-
-        HONEY_BOTTLE_EFFECT = builder
-                .comment("Determines what effect consuming Honey Bottles will give")
-                .define("honey_bottle_effect", "minecraft:instant_health");
-
-        HONEY_BOTTLE_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Honey Bottle Food Effect will last")
-                .defineInRange("honey_bottle_effect_duration", 0.05, 0, 1000000);
-
-        HONEY_BOTTLE_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Honey Bottle Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("honey_bottle_effect_amplifier", 0, 0, 255);
-
-        BAKED_POTATO_EFFECT = builder
-                .comment("Determines what effect consuming Baked Potatoes will give")
-                .define("baked_potato_effect", "minecraft:strength");
-
-        BAKED_POTATO_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Baked Potatoes Food Effect will last")
-                .defineInRange("baked_potato_effect_duration", 10.0, 0, 1000000);
-
-        BAKED_POTATO_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Baked Potato Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("baked_potato_effect_amplifier", 0, 0, 255);
-
-        CAKE_EFFECT = builder
-                .comment("Determines what effect consuming a slice of Cake will give")
-                .define("cake_effect", "minecraft:speed");
-
-        CAKE_EFFECT_DURATION = builder
-                .comment("Determines how long (in seconds) the Cake Food Effect will last")
-                .defineInRange("cake_effect_duration", 20.0, 0, 1000000);
-
-        CAKE_EFFECT_AMPLIFIER = builder
-                .comment("Determines what level the Cake Food Effect will be (starting at 0 as level 1)")
-                .defineInRange("cake_effect_amplifier", 1, 0, 255);
-
-        builder.pop();
+        @Configurable(description = "Determines what level the Cake Food Effect will be (starting at 0 as level 1)")
+        @IntegerRange(min = 0, max = 255)
+        public static int cake_effect_amplifier = 1;
     }
 }

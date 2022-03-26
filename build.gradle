@@ -67,6 +67,12 @@ minecraft {
                 }
             }
         }
+
+        all {
+            lazyToken('minecraft_classpath') {
+                configurations.packIntoJar.copyRecursive().resolve().collect { it.absolutePath }.join(File.pathSeparator)
+            }
+        }
     }
 }
 
@@ -79,12 +85,29 @@ mixin {
     dumpTargetOnFailure = true
 }
 
+configurations {
+    packIntoJar {
+        extendsFrom runtimeOnly
+        transitive = false
+    }
+}
+
+repositories {
+    maven { url = 'https://maven.infernalstudios.org/releases' }
+}
+
 dependencies {
     minecraft "net.minecraftforge:forge:${config.MINECRAFT_VERSION}-${config.FORGE_VERSION}"
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation "org.infernalstudios:config:${config.CONFIG_LIB_VERSION}"
+    packIntoJar "org.infernalstudios:config:${config.CONFIG_LIB_VERSION}"
 }
 
 jar {
+    from {
+        configurations.packIntoJar.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+
     manifest {
         attributes([
                 'Specification-Title'   : config.TITLE,
