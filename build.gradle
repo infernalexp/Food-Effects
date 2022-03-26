@@ -71,12 +71,6 @@ minecraft {
                 }
             }
         }
-
-        all {
-            lazyToken('minecraft_classpath') {
-                configurations.packIntoJar.copyRecursive().resolve().collect { it.absolutePath }.join(File.pathSeparator)
-            }
-        }
     }
 }
 
@@ -91,13 +85,14 @@ mixin {
 
 configurations {
     packIntoJar {
-        extendsFrom runtimeOnly
         transitive = false
     }
 }
 
 repositories {
-    maven { url = 'https://maven.infernalstudios.org/releases' }
+    maven {
+        url = config.CONFIG_LIB_VERSION.endsWith('SNAPSHOT') ? 'https://maven.infernalstudios.org/snapshots' : 'https://maven.infernalstudios.org/releases' 
+    }
 }
 
 dependencies {
@@ -108,6 +103,7 @@ dependencies {
 }
 
 shadowJar {
+    classifier ''
     configurations = [project.configurations.packIntoJar]
     relocate 'org.infernalstudios.config', 'org.infernalstudios.foodeffects.config.library'
 }
@@ -117,6 +113,8 @@ reobf {
 }
 
 jar {
+    classifier 'base'
+
     manifest {
         attributes([
                 'Specification-Title'   : config.TITLE,

@@ -16,117 +16,40 @@
 
 package org.infernalstudios.foodeffects.config;
 
-import org.infernalstudios.config.annotation.Category;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.infernalstudios.config.annotation.Configurable;
-import org.infernalstudios.config.annotation.DoubleRange;
-import org.infernalstudios.config.annotation.IntegerRange;
+import org.infernalstudios.foodeffects.EffectData;
+
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.item.Items;
 
 public class FoodEffectsConfig {
-    @Category("General")
-    public static class General {
-        @Configurable(description = "Determines if Sweet Berries and Cookies should be eaten as fast as Dried Kelp")
-        public static boolean eat_cookies_berries_fast = true;
+    static {
     }
 
-    @Category("Effects")
-    public static class Effects {
-        @Configurable(description = "Determines what effect consuming Pufferfish will give (in addition to existing effects)")
-        public static String pufferfish_effect = "minecraft:water_breathing";
+    @Configurable(description = "Determines if Sweet Berries and Cookies should be eaten as fast as Dried Kelp", category = "General")
+    public static boolean eat_cookies_berries_fast = true;
 
-        @Configurable(description = "Determines how long (in seconds) the Pufferfish Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double pufferfish_effect_duration = 10.0;
-
-        @Configurable(description = "Determines what level the Pufferfish Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int pufferfish_effect_amplifier = 0;
-
-        @Configurable(description = "Determines what effect consuming Mushroom Stew will give")
-        public static String mushroom_stew_effect = "minecraft:regeneration";
-
-        @Configurable(description = "Determines how long (in seconds) the Mushroom Stew Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double mushroom_stew_effect_duration = 5.0;
-
-        @Configurable(description = "Determines what level the Mushroom Stew Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int mushroom_stew_effect_amplifier = 1;
-
-        @Configurable(description = "Determines what effect consuming Rabbit Stew will give")
-        public static String rabbit_stew_effect = "minecraft:jump_boost";
-
-        @Configurable(description = "Determines how long (in seconds) the Rabbit Stew Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double rabbit_stew_effect_duration = 10.0;
-
-        @Configurable(description = "Determines what level the Rabbit Stew Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int rabbit_stew_effect_amplifier = 1;
-
-        @Configurable(description = "Determines what effect consuming Beetroot Soup will give")
-        public static String beetroot_soup_effect = "minecraft:health_boost";
-
-        @Configurable(description = "Determines how long (in seconds) the Beetroot Soup Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double beetroot_soup_effect_duration = 30.0;
-
-        @Configurable(description = "Determines what level the Beetroot Soup Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int beetroot_soup_effect_amplifier = 0;
-
-        @Configurable(description = "Determines what effect consuming Cookies will give")
-        public static String cookie_effect = "minecraft:speed";
-
-        @Configurable(description = "Determines how long (in seconds) the Cookie Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double cookie_effect_duration = 10.0;
-
-        @Configurable(description = "Determines what level the Cookie Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int cookie_effect_amplifier = 0;
-
-        @Configurable(description = "Determines what effect consuming Pumpkin Pie will give")
-        public static String pumpkin_pie_effect = "minecraft:haste";
-
-        @Configurable(description = "Determines how long (in seconds) the Pumpkin Pie Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double pumpkin_pie_effect_duration = 15.0;
-
-        @Configurable(description = "Determines what level the Pumpkin Pie Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int pumpkin_pie_effect_amplifier = 1;
-
-        @Configurable(description = "Determines what effect consuming Honey Bottles will give")
-        public static String honey_bottle_effect = "minecraft:instant_health";
-
-        @Configurable(description = "Determines how long (in seconds) the Honey Bottle Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double honey_bottle_effect_duration = 0.05;
-
-        @Configurable(description = "Determines what level the Honey Bottle Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int honey_bottle_effect_amplifier = 0;
-
-        @Configurable(description = "Determines what effect consuming Baked Potatoes will give")
-        public static String baked_potato_effect = "minecraft:strength";
-
-        @Configurable(description = "Determines how long (in seconds) the Baked Potatoes Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double baked_potato_effect_duration = 10.0;
-
-        @Configurable(description = "Determines what level the Baked Potato Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int baked_potato_effect_amplifier = 0;
-
-        @Configurable(description = "Determines what effect consuming a slice of Cake will give")
-        public static String cake_effect = "minecraft:speed";
-
-        @Configurable(description = "Determines how long (in seconds) the Cake Food Effect will last")
-        @DoubleRange(min = 0, max = 1000000)
-        public static double cake_effect_duration = 20.0;
-
-        @Configurable(description = "Determines what level the Cake Food Effect will be (starting at 0 as level 1)")
-        @IntegerRange(min = 0, max = 255)
-        public static int cake_effect_amplifier = 1;
-    }
+    @Configurable(handler = "org.infernalstudios.foodeffects.config.handler.EffectDataListConfigHandler.INSTANCE")
+    public static List<EffectData> effects = new ArrayList<>(List.of(
+        new EffectData(() -> Items.BAKED_POTATO,  () -> MobEffects.DAMAGE_BOOST,    200, 0),
+        new EffectData(() -> Items.BEETROOT_SOUP, () -> MobEffects.HEALTH_BOOST,    600, 0),
+        new EffectData(() -> Items.CAKE,          () -> MobEffects.MOVEMENT_SPEED,  400, 1),
+        new EffectData(() -> Items.COOKIE,        () -> MobEffects.MOVEMENT_SPEED,  200, 0),
+        new EffectData(() -> Items.DRIED_KELP,    () -> MobEffects.BLINDNESS,       0,   0),
+        new EffectData(() -> Items.DRIED_KELP,    () -> MobEffects.CONFUSION,       0,   0),
+        new EffectData(() -> Items.DRIED_KELP,    () -> MobEffects.POISON,          0,   0),
+        new EffectData(() -> Items.HONEY_BOTTLE,  () -> MobEffects.HEAL,            1,   0),
+        new EffectData(() -> Items.MUSHROOM_STEW, () -> MobEffects.REGENERATION,    100, 0),
+        new EffectData(() -> Items.PUFFERFISH,    () -> MobEffects.WATER_BREATHING, 200, 0),
+        new EffectData(() -> Items.PUMPKIN_PIE,   () -> MobEffects.DIG_SPEED,       300, 1),
+        new EffectData(() -> Items.RABBIT_STEW,   () -> MobEffects.JUMP,            200, 1)
+    )) {
+        @Override
+        public String toString() {
+            return "";
+        }
+    };
 }

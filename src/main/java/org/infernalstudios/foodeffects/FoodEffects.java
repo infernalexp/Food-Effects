@@ -17,10 +17,12 @@
 package org.infernalstudios.foodeffects;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.electronwill.nightconfig.core.io.ParsingException;
 
 import org.infernalstudios.config.Config;
+import org.infernalstudios.config.Config.ReloadStage;
 import org.infernalstudios.foodeffects.config.FoodEffectsConfig;
 
 import net.minecraftforge.common.MinecraftForge;
@@ -43,14 +45,26 @@ public class FoodEffects {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new FoodEffectsEvents());
 
+        Config config;
         try {
-            Config
+            config = Config
                 .builder(FMLPaths.CONFIGDIR.get().resolve("foodeffects-common.toml"))
-                .loadClass(FoodEffectsConfig.General.class)
-                .loadClass(FoodEffectsConfig.Effects.class)
+                .loadClass(FoodEffectsConfig.class)
                 .build();
         } catch (IllegalStateException | IllegalArgumentException | IOException | ParsingException e) {
             throw new RuntimeException("Failed to load Food Effects config", e);
         }
+
+        config.onReload(stage -> {
+            if (stage.equals(ReloadStage.POST)) {
+                FoodEffectsEvents.EFFECT_MAP.clear();
+                for (EffectData effect : FoodEffectsConfig.effects) {
+                    if (!FoodEffectsEvents.EFFECT_MAP.containsKey(effect.getItem())) {
+                        FoodEffectsEvents.EFFECT_MAP.put(effect.getItem(), new ArrayList<>());
+                    }
+                    FoodEffectsEvents.EFFECT_MAP.get(effect.getItem()).add(effect);
+                }
+            }
+        });
     }
 }
