@@ -13,6 +13,10 @@ buildscript {
     }
 }
 
+plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 apply plugin: 'org.spongepowered.mixin'
@@ -103,11 +107,16 @@ dependencies {
     packIntoJar "org.infernalstudios:config:${config.CONFIG_LIB_VERSION}"
 }
 
-jar {
-    from {
-        configurations.packIntoJar.collect { it.isDirectory() ? it : zipTree(it) }
-    }
+shadowJar {
+    configurations = [project.configurations.packIntoJar]
+    relocate 'org.infernalstudios.config', 'org.infernalstudios.foodeffects.config.library'
+}
 
+reobf {
+    shadowJar {}
+}
+
+jar {
     manifest {
         attributes([
                 'Specification-Title'   : config.TITLE,
@@ -129,6 +138,8 @@ task sourcesJar(type: Jar) {
 }
 
 tasks.build.dependsOn sourcesJar
+tasks.build.dependsOn shadowJar
+tasks.build.dependsOn reobfShadowJar
 
 // Config parse function
 def parseConfig(File config) {
