@@ -51,6 +51,6 @@ public class EffectDataListConfigHandler implements IConfigElementHandler<List<E
 
     @Override
     public boolean canHandle(Class<?> clazz) {
-        return clazz == List.class || clazz.isAssignableFrom(List.class);
+        return clazz == List.class || List.class.isAssignableFrom(clazz);
     }
 }
