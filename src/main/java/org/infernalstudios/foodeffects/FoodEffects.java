@@ -52,7 +52,9 @@ public class FoodEffects {
                 .loadClass(FoodEffectsConfig.class)
                 .build();
         } catch (IllegalStateException | IllegalArgumentException | IOException | ParsingException e) {
-            throw new RuntimeException("Failed to load Food Effects config", e);
+            throw new RuntimeException(
+                "Failed to load Food Effects config" +
+                (e instanceof ParsingException ? ", try deleting your config file" : ""), e);
         }
 
         config.onReload(stage -> {

@@ -12,13 +12,50 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public record EffectData(Supplier<Item> item, Supplier<MobEffect> effect, int duration, int amplifier) {
+public class EffectData {
+    private final ResourceLocation item;
+    private final ResourceLocation effect;
+    private final int duration;
+    private final int amplifier;
+    private Item itemValue = null;
+    private MobEffect effectValue = null;
+
+    public EffectData(ResourceLocation item, ResourceLocation effect, int duration, int amplifier) {
+        this.item = item;
+        this.effect = effect;
+        this.duration = duration;
+        this.amplifier = amplifier;
+    }
+
+    public EffectData(Item item, MobEffect effect, int duration, int amplifier) {
+        this.item = item.getRegistryName();
+        this.effect = effect.getRegistryName();
+        this.itemValue = item;
+        this.effectValue = effect;
+        this.duration = duration;
+        this.amplifier = amplifier;
+    }
+
+    public ResourceLocation getItemLocation() {
+        return item;
+    }
+
     public Item getItem() {
-        return item.get();
+        if (itemValue == null) {
+            itemValue = ForgeRegistries.ITEMS.getValue(this.getItemLocation());
+        }
+        return itemValue;
+    }
+
+    public ResourceLocation getEffectLocation() {
+        return effect;
     }
 
     public MobEffect getEffect() {
-        return effect.get();
+        if (effectValue == null) {
+            effectValue = ForgeRegistries.MOB_EFFECTS.getValue(this.getEffectLocation());
+        }
+        return effectValue;
     }
     
     public int getDuration() {
@@ -32,8 +69,8 @@ public record EffectData(Supplier<Item> item, Supplier<MobEffect> effect, int du
     public Config toConfig() {
         CommentedConfig config = CommentedConfig.of(() -> new HashMap<>(4), TomlFormat.instance());
 
-        config.set("item", this.getItem().getRegistryName().toString());
-        config.set("effect", this.getEffect().getRegistryName().toString());
+        config.set("item", this.getItemLocation().toString());
+        config.set("effect", this.getEffectLocation().toString());
         config.set("duration", (double) this.getDuration() / 20);
         config.set("amplifier", this.getAmplifier());
 
@@ -47,8 +84,8 @@ public record EffectData(Supplier<Item> item, Supplier<MobEffect> effect, int du
 
     public static EffectData fromConfig(Config config) {
         return new EffectData(
-            () -> ForgeRegistries.ITEMS.getValue(ResourceLocation.tryParse(config.<String>get("item"))),
-            () -> ForgeRegistries.MOB_EFFECTS.getValue(ResourceLocation.tryParse(config.<String>get("effect"))),
+            ResourceLocation.tryParse(config.<String>get("item")),
+            ResourceLocation.tryParse(config.<String>get("effect")),
             (int) (config.<Number>get("duration").doubleValue() * 20),
             config.getInt("amplifier")
         );
