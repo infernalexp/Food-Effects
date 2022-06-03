@@ -1,7 +1,8 @@
 package org.infernalstudios.foodeffects;
 
 import java.util.HashMap;
-import java.util.function.Supplier;
+
+import javax.annotation.Nullable;
 
 import com.electronwill.nightconfig.core.CommentedConfig;
 import com.electronwill.nightconfig.core.Config;
@@ -12,56 +13,30 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class EffectData {
-    private final ResourceLocation item;
-    private final ResourceLocation effect;
-    private final int duration;
-    private final int amplifier;
-    private Item itemValue = null;
-    private MobEffect effectValue = null;
-
-    public EffectData(ResourceLocation item, ResourceLocation effect, int duration, int amplifier) {
-        this.item = item;
-        this.effect = effect;
-        this.duration = duration;
-        this.amplifier = amplifier;
-    }
-
-    public EffectData(Item item, MobEffect effect, int duration, int amplifier) {
-        this.item = item.getRegistryName();
-        this.effect = effect.getRegistryName();
-        this.itemValue = item;
-        this.effectValue = effect;
-        this.duration = duration;
-        this.amplifier = amplifier;
-    }
+public record EffectData(ResourceLocation item, ResourceLocation effect, int duration, int amplifier) {
 
     public ResourceLocation getItemLocation() {
         return item;
     }
 
+    @Nullable
     public Item getItem() {
-        if (itemValue == null) {
-            itemValue = ForgeRegistries.ITEMS.getValue(this.getItemLocation());
-        }
-        return itemValue;
+        return ForgeRegistries.ITEMS.getValue(this.getItemLocation());
     }
 
     public ResourceLocation getEffectLocation() {
         return effect;
     }
 
+    @Nullable
     public MobEffect getEffect() {
-        if (effectValue == null) {
-            effectValue = ForgeRegistries.MOB_EFFECTS.getValue(this.getEffectLocation());
-        }
-        return effectValue;
+        return ForgeRegistries.MOB_EFFECTS.getValue(this.getEffectLocation());
     }
-    
+
     public int getDuration() {
         return duration;
     }
-    
+
     public int getAmplifier() {
         return amplifier;
     }
@@ -82,12 +57,24 @@ public class EffectData {
         return config;
     }
 
+    @Override
+    public String toString() {
+        return "EffectData [item=" + item + ", effect=" + effect + ", duration=" + duration + ", amplifier=" + amplifier + "]";
+    }
+
     public static EffectData fromConfig(Config config) {
         return new EffectData(
-            ResourceLocation.tryParse(config.<String>get("item")),
-            ResourceLocation.tryParse(config.<String>get("effect")),
-            (int) (config.<Number>get("duration").doubleValue() * 20),
-            config.getInt("amplifier")
-        );
+                ResourceLocation.tryParse(config.<String>get("item")),
+                ResourceLocation.tryParse(config.<String>get("effect")),
+                (int) (config.<Number>get("duration").doubleValue() * 20),
+                config.getInt("amplifier"));
+    }
+
+    public static EffectData of(Item item, MobEffect effect, int duration, int amplifier) {
+        return new EffectData(item.getRegistryName(), effect.getRegistryName(), duration, amplifier);
+    }
+
+    public static EffectData of(ResourceLocation item, ResourceLocation effect, int duration, int amplifier) {
+        return new EffectData(item, effect, duration, amplifier);
     }
 }

@@ -16,21 +16,18 @@
 
 package org.infernalstudios.foodeffects;
 
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 import org.infernalstudios.foodeffects.config.FoodEffectsConfig;
 
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 
 @EventBusSubscriber(modid = FoodEffects.MOD_ID)
 public class FoodEffectsEvents {
@@ -44,8 +41,6 @@ public class FoodEffectsEvents {
         }
     }
 
-    protected static final Map<Item, List<EffectData>> EFFECT_MAP = new ConcurrentHashMap<>();
-
     @SubscribeEvent
     public void onLivingEntityUseItemFinish(LivingEntityUseItemEvent.Finish event) {
         if (event.getEntity() instanceof Player player) {
@@ -54,26 +49,40 @@ public class FoodEffectsEvents {
     }
 
     public static void onEat(Player player, Item item) {
-        if (item == Items.DRIED_KELP) {
-            player.removeEffect(MobEffects.POISON);
-            player.removeEffect(MobEffects.CONFUSION);
-            player.removeEffect(MobEffects.BLINDNESS);
-        }
-        List<EffectData> effectData = EFFECT_MAP.get(item);
-        if (effectData == null) {
-            return;
-        }
-        for (EffectData effect : effectData) {
-            if (effect.getDuration() == 0) {
-                player.removeEffect(effect.getEffect());
-            } else {
-                player.addEffect(
-                    new MobEffectInstance(
-                        effect.getEffect(),
-                        effect.getDuration(),
-                        effect.getAmplifier()
-                    )
-                );
+        for (EffectData effect : FoodEffectsConfig.effects) {
+            // For safety ;)
+            if (effect == null) {
+                FoodEffects.LOGGER.traceExit(
+                    "EffectData is null! This should never happen, please report this to the developers at: %s",
+                    ((ModFileInfo) ModList.get().getModFileById(FoodEffects.MOD_ID)).getIssueURL().toString());
+                continue;
+            }
+            if (effect.getItem() == null) {
+                FoodEffects.LOGGER.traceExit(
+                        "Item is null! This should never happen, please report this to the developers at: %s",
+                        ((ModFileInfo) ModList.get().getModFileById(FoodEffects.MOD_ID)).getIssueURL().toString());
+                continue;
+            }
+            if (effect.getEffect() == null) {
+                FoodEffects.LOGGER.traceExit(
+                        "Effect is null! This should never happen, please report this to the developers at: %s",
+                        ((ModFileInfo) ModList.get().getModFileById(FoodEffects.MOD_ID)).getIssueURL().toString());
+                continue;
+            }
+
+            // Getting the item location is faster than resolving the item from a registry
+            if (effect.getItemLocation().equals(item.getRegistryName())) {
+                if (effect.getDuration() == 0) {
+                    player.removeEffect(effect.getEffect());
+                } else {
+                    player.addEffect(
+                        new MobEffectInstance(
+                            effect.getEffect(),
+                            effect.getDuration(),
+                            effect.getAmplifier()
+                        )
+                    );
+                }
             }
         }
     }

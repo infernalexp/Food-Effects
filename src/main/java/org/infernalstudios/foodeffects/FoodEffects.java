@@ -17,13 +17,14 @@
 package org.infernalstudios.foodeffects;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import com.electronwill.nightconfig.core.io.ParsingException;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.infernalstudios.config.Config;
 import org.infernalstudios.config.Config.ReloadStage;
 import org.infernalstudios.foodeffects.config.FoodEffectsConfig;
+
+import com.electronwill.nightconfig.core.io.ParsingException;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
@@ -35,6 +36,7 @@ import net.minecraftforge.network.NetworkConstants;
 @Mod(FoodEffects.MOD_ID)
 public class FoodEffects {
     public static final String MOD_ID = "foodeffects";
+    public static final Logger LOGGER = LogManager.getLogger();
 
     public FoodEffects() {
         final ModLoadingContext context = ModLoadingContext.get();
@@ -45,27 +47,20 @@ public class FoodEffects {
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new FoodEffectsEvents());
 
-        Config config;
         try {
-            config = Config
+            FoodEffectsConfig.CONFIG = Config
                 .builder(FMLPaths.CONFIGDIR.get().resolve("foodeffects-common.toml"))
                 .loadClass(FoodEffectsConfig.class)
                 .build();
         } catch (IllegalStateException | IllegalArgumentException | IOException | ParsingException e) {
             throw new RuntimeException(
                 "Failed to load Food Effects config" +
-                (e instanceof ParsingException ? ", try deleting your config file" : ""), e);
+                (e instanceof ParsingException ? ", try fixing/deleting your config file" : ""), e);
         }
 
-        config.onReload(stage -> {
-            if (stage.equals(ReloadStage.POST)) {
-                FoodEffectsEvents.EFFECT_MAP.clear();
-                for (EffectData effect : FoodEffectsConfig.effects) {
-                    if (!FoodEffectsEvents.EFFECT_MAP.containsKey(effect.getItem())) {
-                        FoodEffectsEvents.EFFECT_MAP.put(effect.getItem(), new ArrayList<>());
-                    }
-                    FoodEffectsEvents.EFFECT_MAP.get(effect.getItem()).add(effect);
-                }
+        FoodEffectsConfig.CONFIG.onReload(stage -> {
+            if (stage == ReloadStage.PRE) {
+                FoodEffects.LOGGER.debug("Reloading Food Effects config");
             }
         });
     }
