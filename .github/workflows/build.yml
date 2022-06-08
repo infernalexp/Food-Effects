@@ -1,12 +1,13 @@
 name: Build
 on:
   push:
-    branches: [ '1.18' ]
+    branches: [ '1.19' ]
     paths:
       - 'build.gradle'
       - 'build.properties'
+      - '.github/workflows/build.yml'
   pull_request:
-    branches: [ '1.18' ]
+    branches: [ '1.19' ]
     paths:
       - 'src/**'
       - 'build.gradle'
