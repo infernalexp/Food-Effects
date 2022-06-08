@@ -28,6 +28,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @EventBusSubscriber(modid = FoodEffects.MOD_ID)
 public class FoodEffectsEvents {
@@ -70,8 +71,7 @@ public class FoodEffectsEvents {
                 continue;
             }
 
-            // Getting the item location is faster than resolving the item from a registry
-            if (effect.getItemLocation().equals(item.getRegistryName())) {
+            if (effect.getItemLocation().equals(ForgeRegistries.ITEMS.getKey(item))) {
                 if (effect.getDuration() == 0) {
                     player.removeEffect(effect.getEffect());
                 } else {

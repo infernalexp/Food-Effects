@@ -71,7 +71,7 @@ public record EffectData(ResourceLocation item, ResourceLocation effect, int dur
     }
 
     public static EffectData of(Item item, MobEffect effect, int duration, int amplifier) {
-        return new EffectData(item.getRegistryName(), effect.getRegistryName(), duration, amplifier);
+        return new EffectData(ForgeRegistries.ITEMS.getKey(item), ForgeRegistries.MOB_EFFECTS.getKey(effect), duration, amplifier);
     }
 
     public static EffectData of(ResourceLocation item, ResourceLocation effect, int duration, int amplifier) {
